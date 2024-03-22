@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-ca">
+<html lang="ca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -171,6 +171,14 @@ window.onload = calculatePrices;
 
 <body>
 
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
 <div class="container">
   <div class="row mt-4">
     <div class="col-12">
@@ -202,7 +210,7 @@ window.onload = calculatePrices;
   </div>
   <div class="row">
     <div class="col-6">
-      <label class="mt-2" for="buoyService">Període en que utilitzaràs la boia:</label>
+      <label class="mt-2" for="buoyService">Període en que utilitzaras la boia:</label>
       <select id="buoyService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
         <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
