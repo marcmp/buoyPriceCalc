@@ -152,9 +152,10 @@ function calculatePrices() {
     const taxiPrice = calculateTaxiPrice(provider, taxiService);
     const finalPrice = buoyPrice + taxiPrice;
 
-    document.getElementById(formattedProviderId + 'BuoyPrice').textContent = buoyPrice.toFixed(0) + ' €';
-    document.getElementById(formattedProviderId + 'TaxiPrice').textContent = taxiPrice.toFixed(0) + ' €';
-    document.getElementById(formattedProviderId + 'TotalPrice').textContent = finalPrice.toFixed(0) + ' €';
+    document.getElementById(formattedProviderId + 'TotalPrice').textContent = finalPrice.toLocaleString() + ' €';
+    document.getElementById(formattedProviderId + 'BuoyPrice').textContent = buoyPrice.toLocaleString() + ' €';
+    document.getElementById(formattedProviderId + 'TaxiPrice').textContent = taxiPrice.toLocaleString() + ' €';
+    
   });
 }
 
@@ -171,24 +172,24 @@ window.onload = calculatePrices;
 <body>
 
 <div class="container">
-<div class="row my-4">
-  <div class="col-12">
-    <h2 class="text-center">CALCULADORA PREUS BOIA CADAQUÉS</h2>
+  <div class="row my-4">
+    <div class="col-12">
+      <h2 class="text-center">CALCULADORA PREUS BOIA CADAQUÉS</h2>
+    </div>
   </div>
-</div>
-<div class="row my-1">
-  <div class="col-12">
-    <h6 class="text-center">by <a href="https://www.aueecad.org">AUUECAD</a></h6>
+  <div class="row my-1">
+    <div class="col-12">
+      <h6 class="text-center">by <a href="https://www.aueecad.org">AUUECAD</a></h6>
+    </div>
   </div>
-</div>
-<div class="row my-4">
-  <div class="col-12">
-    <h3 class="text-left">Introdueix dades per temporada 2024</h3>
+  <div class="row my-4">
+    <div class="col-12">
+      <h3 class="text-left">Introdueix dades per temporada 2024</h3>
+    </div>
   </div>
-</div>
   <div class="row">
-    <div class="col-4">
-      Mida de la teva embarcació
+    <div class="col-6">
+      <label class="mt-2" for="boatSize">Mida de la teva embarcació:</label>
       <select id="boatSize" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="< 6 MTS">&lt; 6 MTS</option>
         <option value="6<8 MTS">6&lt;8 MTS</option>
@@ -200,8 +201,8 @@ window.onload = calculatePrices;
     </div>
   </div>
   <div class="row">
-    <div class="col-4">
-      Període en que utilitzaràs la boia
+    <div class="col-6">
+      <label class="mt-2" for="buoyService">Període en que utilitzaràs la boia:</label>
       <select id="buoyService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
         <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
@@ -211,8 +212,8 @@ window.onload = calculatePrices;
     </div>
   </div>
   <div class="row">
-    <div class="col-4">
-      Període en que utilitzaras el taxi
+    <div class="col-6">
+      <label class="mt-2" for="taxiService">Període en que utilitzaras el taxi:</label>
       <select id="taxiService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
         <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
@@ -241,7 +242,7 @@ window.onload = calculatePrices;
       </thead>
       <tbody class="table-group-divider">
         <tr>
-          <td>Promar</td>
+          <td class="fw-bold">Promar</td>
           <td id="promarTotalPrice" class="fw-bold">-</td>
           <td>=</td>
           <td id="promarBuoyPrice">-</td>
@@ -249,7 +250,7 @@ window.onload = calculatePrices;
           <td id="promarTaxiPrice">-</td>
         </tr>
         <tr>
-          <td>Serveis De Port</td>
+          <td class="fw-bold">Serveis de Port</td>
           <td id="serveisDePortTotalPrice" class="fw-bold">-</td>
           <td>=</td>
           <td id="serveisDePortBuoyPrice">-</td>
@@ -257,7 +258,7 @@ window.onload = calculatePrices;
           <td id="serveisDePortTaxiPrice">-</td>
         </tr>
         <tr>
-          <td>Sotamar</td>
+          <td class="fw-bold">Sotamar</td>
           <td id="sotamarTotalPrice" class="fw-bold">-</td>
           <td>=</td>
           <td id="sotamarBuoyPrice">-</td>
@@ -265,7 +266,7 @@ window.onload = calculatePrices;
           <td id="sotamarTaxiPrice">-</td>
         </tr>
         <tr>
-          <td>Més De Mar (Portlligat)</td>
+          <td class="fw-bold">Mésdemar (Portlligat)</td>
           <td id="mesDeMarTotalPrice" class="fw-bold">-</td>
           <td>=</td>
           <td id="mesDeMarBuoyPrice">-</td>
@@ -274,24 +275,25 @@ window.onload = calculatePrices;
         </tr>
       </tbody>
     </table>
-</div>
-<div class="row my-4">
-  <div class="col-12">
-    <h3 class="text-left mt-5">Plànol situació concessions (estàtic)</h3>
+  </div>
+  <div class="row my-4">
+    <div class="col-12">
+      <h3 class="text-left mt-5">Plànol de situació (estàtic)</h3>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-12">
+      <img src="planolConcessionaries.jpg" class="img-fluid" alt="...">
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-12">
+      <h4 class="text-center">AUEECAD - Associació d'Usuaris d'Embarcacions d'Esbarjo de Cadaqués </h4>
+      <p class="text-left">[*] Equest servei és a titol informatiu, en cap cas AUEECAD es fa responsables de la correcció de la informació mostrada. Us recomanem verifiqueu sempre el resultat amb la concessionaria abans de contractar el servei.<p>
+    </div>
   </div>
 </div>
-<div class="row my-4">
-  <div class="col-12">
-    <img src="planolConcessionaries.jpg" class="img-fluid" alt="...">
-  </div>
-</div>
-<div class="row my-4">
-  <div class="col-12">
-    <h4 class="text-center">AUEECAD - Associació d'Usuaris d'Embarcacions d'Esbarjo de Cadaqués </h4>
-    <p class="text-left">[*] Equest servei és a titol informatiu, en cap cas AUEECAD es fa responsables de la correcció de la informació mostrada. Us recomanem verifiqueu sempre el resultat amb la concessionaria abans de contractar el servei.<p>
-  </div>
-</div>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
