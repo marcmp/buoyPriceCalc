@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Calculadora Preus Boies Cadaqués 2024</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://aueecad.matomo.cloud/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src='https://cdn.matomo.cloud/aueecad.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
 </head>
 
 <script>
@@ -120,7 +136,7 @@ function calculateTaxiPrice(provider, seasonService) {
   return totalPrice;
 }
 
-// Function to handle price calculation
+
 function calculatePrices() {
   const boatSizeValue = document.getElementById('boatSize').value;
   const buoyServiceValue = document.getElementById('buoyService').value;
@@ -142,19 +158,37 @@ function calculatePrices() {
   });
 }
 
-// A helper function to convert provider names to match the id pattern
+// Helper function to convert provider names to match the id pattern
 function formatProviderId(provider) {
   return provider.charAt(0).toLowerCase() + provider.slice(1);
 }
+
+// Initialize the calculations on page load
+window.onload = calculatePrices;
 
 </script>
 
 <body>
 
 <div class="container">
+<div class="row my-4">
+  <div class="col-12">
+    <h2 class="text-center">CALCULADORA PREUS BOIA CADAQUÉS</h2>
+  </div>
+</div>
+<div class="row my-1">
+  <div class="col-12">
+    <h6 class="text-center">by AUUECAD</h6>
+  </div>
+</div>
+<div class="row my-4">
+  <div class="col-12">
+    <h3 class="text-left">Introdueix dades per temporada 2024</h3>
+  </div>
+</div>
   <div class="row">
     <div class="col-4">
-      Quina és la mida de l'embarcació?
+      Mida de la teva embarcació
       <select id="boatSize" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="< 6 MTS">&lt; 6 MTS</option>
         <option value="6<8 MTS">6&lt;8 MTS</option>
@@ -167,10 +201,10 @@ function formatProviderId(provider) {
   </div>
   <div class="row">
     <div class="col-4">
-      En quin període utilitzaràs la boia?
+      Període en que utilitzaràs la boia
       <select id="buoyService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
-        <option selected value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
-        <option value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
+        <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
+        <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
         <option value="1 Juny a 30 Setembre">1 Juny a 30 Setembre</option>
         <option value="1 Maig a 30 Setembre">1 Maig a 30 Setembre</option>
       </select>
@@ -178,7 +212,7 @@ function formatProviderId(provider) {
   </div>
   <div class="row">
     <div class="col-4">
-      En quin període utilitzaras el taxi?
+      Període en que utilitzaras el taxi
       <select id="taxiService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
         <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
@@ -189,75 +223,75 @@ function formatProviderId(provider) {
   </div>
   <div class="row my-4">
     <div class="col-12">
-      <h2 class="text-center mt-5 mb-3">Comparativa Preus</h2>
+      <h3 class="text-left mt-5">Càlcul de Preus *</h3>
     </div>
   </div>
+  <div class="row my-4">
+    <!-- Table to display the prices -->
+    <table class="table" id="priceTable">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">TOTAL</th>
+          <td>=</td>
+          <th scope="col">preu Boia</th>
+          <td>+</td>
+          <th scope="col">preu Taxi</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr>
+          <td>Promar</td>
+          <td id="promarTotalPrice" class="fw-bold">-</td>
+          <td>=</td>
+          <td id="promarBuoyPrice">-</td>
+          <td>+</td>
+          <td id="promarTaxiPrice">-</td>
+        </tr>
+        <tr>
+          <td>Serveis De Port</td>
+          <td id="serveisDePortTotalPrice" class="fw-bold">-</td>
+          <td>=</td>
+          <td id="serveisDePortBuoyPrice">-</td>
+          <td>+</td>
+          <td id="serveisDePortTaxiPrice">-</td>
+        </tr>
+        <tr>
+          <td>Sotamar</td>
+          <td id="sotamarTotalPrice" class="fw-bold">-</td>
+          <td>=</td>
+          <td id="sotamarBuoyPrice">-</td>
+          <td>+</td>
+          <td id="sotamarTaxiPrice">-</td>
+        </tr>
+        <tr>
+          <td>Més De Mar (Portlligat)</td>
+          <td id="mesDeMarTotalPrice" class="fw-bold">-</td>
+          <td>=</td>
+          <td id="mesDeMarBuoyPrice">-</td>
+          <td>+</td>
+          <td id="mesDeMarTaxiPrice">-</td>
+        </tr>
+      </tbody>
+    </table>
 </div>
-
-<!-- Table to display the prices -->
-<table class="table" id="priceTable">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">TOTAL</th>
-      <td>=</td>
-      <th scope="col">preu Boia</th>
-      <td>+</td>
-      <th scope="col">preu Taxi</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr>
-      <td>Promar</td>
-      <td id="promarTotalPrice">-</td>
-      <td>=</td>
-      <td id="promarBuoyPrice">-</td>
-      <td>+</td>
-      <td id="promarTaxiPrice">-</td>
-    </tr>
-    <tr>
-      <td>Serveis De Port</td>
-      <td id="serveisDePortTotalPrice">-</td>
-      <td>=</td>
-      <td id="serveisDePortBuoyPrice">-</td>
-      <td>+</td>
-      <td id="serveisDePortTaxiPrice">-</td>
-    </tr>
-    <tr>
-      <td>Sotamar</td>
-      <td id="sotamarTotalPrice">-</td>
-      <td>=</td>
-      <td id="sotamarBuoyPrice">-</td>
-      <td>+</td>
-      <td id="sotamarTaxiPrice">-</td>
-    </tr>
-    <tr>
-      <td>Mes De Mar (Portlligat)</td>
-      <td id="mesDeMarTotalPrice">-</td>
-      <td>=</td>
-      <td id="mesDeMarBuoyPrice">-</td>
-      <td>+</td>
-      <td id="mesDeMarTaxiPrice">-</td>
-    </tr>
-  </tbody>
-</table>
-
 <div class="row my-4">
   <div class="col-12">
-    <h2 class="text-center mt-5 mb-3">Plànol situació concessió</h2>
+    <h3 class="text-left mt-5">Plànol situació concessions (estàtic)</h3>
   </div>
 </div>
-<img src="planolConcessionaries.jpg" class="img-fluid" alt="...">
-
 <div class="row my-4">
   <div class="col-12">
-    <h2 class="text-center">AUEECAD - Associació d'Usuaris d'Embarcacions d'Esbarjo de Cadaqués </h2>
+    <img src="planolConcessionaries.jpg" class="img-fluid" alt="...">
   </div>
 </div>
-
-
-
-
+<div class="row my-4">
+  <div class="col-12">
+    <h4 class="text-center">AUEECAD - Associació d'Usuaris d'Embarcacions d'Esbarjo de Cadaqués </h4>
+    <p class="text-left">[*] Equest servei és a titol informatiu, en cap cas AUEECAD es fa responsables de la correcció de la informació mostrada. Us recomanem verifiqueu sempre el resultat amb la concessionaria abans de contractar el servei.<p>
+  </div>
+</div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
