@@ -147,40 +147,53 @@ function formatProviderId(provider) {
   return provider.charAt(0).toLowerCase() + provider.slice(1);
 }
 
-// Initialize the calculations on page load
-window.onload = calculatePrices;
 </script>
 
 <body>
 
-<!-- Dropdowns for user input -->
-Selecciona la mida de l'embarcació:
-<select id="boatSize" onchange="calculatePrices()" class="form-select --bs-tertiary-color" aria-label="Small select example">
-  <option selected value="< 6 MTS">&lt; 6 MTS</option>
-  <option value="6<8 MTS">6&lt;8 MTS</option>
-  <option value="8<10 MTS">8&lt;10 MTS</option>
-  <option value="10<12 MTS">10&lt;12 MTS</option>
-  <option value="12<15 MTS">12&lt;15 MTS</option>
-  <option value=">15 MTS">&gt; 15 MTS</option>
-</select>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      Quina és la mida de l'embarcació?
+      <select id="boatSize" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
+        <option selected value="< 6 MTS">&lt; 6 MTS</option>
+        <option value="6<8 MTS">6&lt;8 MTS</option>
+        <option value="8<10 MTS">8&lt;10 MTS</option>
+        <option value="10<12 MTS">10&lt;12 MTS</option>
+        <option value="12<15 MTS">12&lt;15 MTS</option>
+        <option value=">15 MTS">&gt; 15 MTS</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      En quin període utilitzaràs la boia?
+      <select id="buoyService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
+        <option selected value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
+        <option value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
+        <option value="1 Juny a 30 Setembre">1 Juny a 30 Setembre</option>
+        <option value="1 Maig a 30 Setembre">1 Maig a 30 Setembre</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      En quin període utilitzaras el taxi?
+      <select id="taxiService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
+        <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
+        <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
+        <option value="1 Juny a 30 Setembre">1 Juny a 30 Setembre</option>
+        <option value="1 Maig a 30 Setembre">1 Maig a 30 Setembre</option>
+      </select>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-12">
+      <h2 class="text-center mt-5 mb-3">Comparativa Preus</h2>
+    </div>
+  </div>
+</div>
 
-Selecciona quan utilitzaras la boia:
-<select id="buoyService" onchange="calculatePrices()" class="form-select --bs-tertiary-color" aria-label="Small select example">
-  <option selected value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
-  <option value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
-  <option value="1 Juny a 30 Setembre">1 Juny a 30 Setembre</option>
-  <option value="1 Maig a 30 Setembre">1 Maig a 30 Setembre</option>
-</select>
-
-Selecciona en quines dates faras servir el taxi zodiac:
-<select id="taxiService" onchange="calculatePrices()" class="form-select --bs-tertiary-color" aria-label="Small select example">
-  <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
-  <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
-  <option value="1 Juny a 30 Setembre">1 Juny a 30 Setembre</option>
-  <option value="1 Maig a 30 Setembre">1 Maig a 30 Setembre</option>
-</select>
-
-PREUS ACTUALITZATS:
 <!-- Table to display the prices -->
 <table class="table" id="priceTable">
   <thead>
@@ -229,9 +242,25 @@ PREUS ACTUALITZATS:
   </tbody>
 </table>
 
+<div class="row my-4">
+  <div class="col-12">
+    <h2 class="text-center mt-5 mb-3">Planol situació concessió</h2>
+  </div>
+</div>
 <img src="planolConcessionaries.jpg" class="img-fluid" alt="...">
+
+<div class="row my-4">
+  <div class="col-12">
+    <h2 class="text-center">AUEECAD - Associació d'Usuaris d'Embarcacions d'Esbarjo de Cadaqués </h2>
+  </div>
+</div>
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 
 </html>
