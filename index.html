@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calculadora Preus Boies Cadaqués 2024</title>
+  <title>Calculadora Preus Amarrament Cadaqués 2024</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <!-- Matomo -->
@@ -25,15 +25,17 @@
 
 <script>
 // Constants and mappings from your provided code
-const providers = ['Promar', 'ServeisDePort', 'Sotamar', 'MesDeMar'];
+const providers = ['Promar', 'ServeisDePort', 'Sotamar', 'MesDeMar', 'MesDeMarPonton'];
 
 const BoatSize = {
-  SIZE_6: 0,
-  SIZE_6_8: 1,
-  SIZE_8_10: 2,
-  SIZE_10_12: 3,
-  SIZE_12_15: 4,
-  SIZE_15: 5
+  SIZE_4: 0,
+  SIZE_4_6: 1,
+  SIZE_6_65: 2, 
+  SIZE_65_8: 3,
+  SIZE_8_10: 4,
+  SIZE_10_12: 5,
+  SIZE_12_15: 6,
+  SIZE_15: 7
 };
 
 const Season = {
@@ -57,12 +59,14 @@ const SeasonServiceMapping = {
 };
 
 const BoatSizeStringMapping = {
-  "< 6 MTS": BoatSize.SIZE_6,
-  "6<8 MTS": BoatSize.SIZE_6_8,
+  "< 4 MTS": BoatSize.SIZE_4,
+  "4<6 MTS": BoatSize.SIZE_4_6,
+  "6<6,5 MTS": BoatSize.SIZE_6_65,
+  "6<8 MTS": BoatSize.SIZE_65_8,
   "8<10 MTS": BoatSize.SIZE_8_10,
   "10<12 MTS": BoatSize.SIZE_10_12,
   "12<15 MTS": BoatSize.SIZE_12_15,
-  ">15 MTS": BoatSize.SIZE_15
+  "> 15 MTS": BoatSize.SIZE_15
 };
 
 const SeasonServiceStringMapping = {
@@ -73,27 +77,32 @@ const SeasonServiceStringMapping = {
 };
 
 // Since the prices are fixed and provided, we can directly include them into the function
-function importBuoyPrices() {
+function importMooringPrices() {
   return {
     'Promar': {
-      [Season.SEASON_MID]: [1542, 1992, 2391, 2867, 3855, 4730],
-      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0],
-      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0]
+      [Season.SEASON_MID]: [1542, 1542, 1992, 1992, 2391, 2867, 3855, 4730],
+      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0, 0, 0],
+      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0, 0, 0]
     },
     'ServeisDePort': {
-      [Season.SEASON_MID]: [1542, 1992, 2391, 2867, 3855, 4730],
-      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0],
-      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0]
+      [Season.SEASON_MID]: [1542, 1542, 1992, 1992, 2391, 2867, 3855, 4730],
+      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0, 0, 0],
+      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0, 0, 0]
     },
     'Sotamar': {
-      [Season.SEASON_MID]: [1546, 2025, 2450, 2995, 4090, 4990],
-      [Season.SEASON_PRE]: [100, 100, 100, 100, 100, 100],
-      [Season.SEASON_POST]: [50, 50, 50, 50, 50, 50]
+      [Season.SEASON_MID]: [1546, 1546, 2025, 2025, 2450, 2995, 4090, 4990],
+      [Season.SEASON_PRE]: [100, 100, 100, 100, 100, 100, 100, 100],
+      [Season.SEASON_POST]: [50, 50, 50,  50, 50, 50, 50, 50]
     },
     'MesDeMar': {
-      [Season.SEASON_MID]: [2080, 2689, 3227, 3870, 5204, 6385],
-      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0],
-      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0]
+      [Season.SEASON_MID]: [2080, 2080, 2689, 2689, 3227, 3870, 5204, 6385],
+      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0, 0, 0],
+      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    'MesDeMarPonton': {
+      [Season.SEASON_MID]: [1195, 2295, 2995, 0, 0, 0, 0],
+      [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0, 0, 0],
+      [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0, 0, 0]
     }
   };
 }
@@ -103,20 +112,21 @@ function importTaxiPrices() {
     'Promar': [0, 200, 200],
     'ServeisDePort': [0, 200, 200],
     'Sotamar': [0, 100, 100],
-    'MesDeMar': [0, 200, 0]
+    'MesDeMar': [0, 200, 0],
+    'MesDeMarPonton': [0, 0, 0]
   };
 }
 
-const buoyPrices = importBuoyPrices();
+const mooringPrices = importMooringPrices();
 const taxiPrices = importTaxiPrices();
 
-function calculateBuoyPrice(provider, seasonService, boatSize) {
+function calculateMooringPrices(provider, seasonService, boatSize) {
   let totalPrice = 0;
-  if (!buoyPrices[provider]) return totalPrice; // Safety check
+  if (!mooringPrices[provider]) return totalPrice; // Safety check
 
   SeasonServiceMapping[seasonService].forEach(season => {
-    if (buoyPrices[provider][season] && buoyPrices[provider][season][boatSize] !== undefined) {
-      totalPrice += buoyPrices[provider][season][boatSize];
+    if (mooringPrices[provider][season] && mooringPrices[provider][season][boatSize] !== undefined) {
+      totalPrice += mooringPrices[provider][season][boatSize];
     }
   });
 
@@ -148,14 +158,13 @@ function calculatePrices() {
 
   providers.forEach(provider => {
     const formattedProviderId = formatProviderId(provider);
-    const buoyPrice = calculateBuoyPrice(provider, buoyService, boatSize);
+    const mooringPrice = calculateMooringPrices(provider, buoyService, boatSize);
     const taxiPrice = calculateTaxiPrice(provider, taxiService);
-    const finalPrice = buoyPrice + taxiPrice;
+    const totalPrice = mooringPrice + taxiPrice;
 
-    document.getElementById(formattedProviderId + 'TotalPrice').textContent = finalPrice.toLocaleString() + ' €';
-    document.getElementById(formattedProviderId + 'BuoyPrice').textContent = buoyPrice.toLocaleString() + ' €';
+    document.getElementById(formattedProviderId + 'TotalPrice').textContent = totalPrice.toLocaleString() + ' €';
+    document.getElementById(formattedProviderId + 'MooringPrice').textContent = mooringPrice.toLocaleString() + ' €';
     document.getElementById(formattedProviderId + 'TaxiPrice').textContent = taxiPrice.toLocaleString() + ' €';
-    
   });
 }
 
@@ -182,7 +191,7 @@ function googleTranslateElementInit() {
 <div class="container">
   <div class="row mt-4">
     <div class="col-12">
-      <h2 class="text-center">CALCULADORA Preus Boia a Cadaqués</h2>
+      <h2 class="text-center">CALCULADORA Preus Amarrament a Cadaqués</h2>
     </div>
   </div>
   <div class="row mt-2">
@@ -199,18 +208,20 @@ function googleTranslateElementInit() {
     <div class="col-6">
       <label class="mt-2" for="boatSize">Mida de la teva embarcació:</label>
       <select id="boatSize" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
-        <option selected value="< 6 MTS">&lt; 6 MTS</option>
+        <option value="< 4 MTS">&lt; 4 MTS</option>
+        <option selected value="4<6 MTS">4&lt;6 MTS</option>
+        <option value="6<6,5 MTS">6&lt;6,5 MTS</option>
         <option value="6<8 MTS">6&lt;8 MTS</option>
         <option value="8<10 MTS">8&lt;10 MTS</option>
         <option value="10<12 MTS">10&lt;12 MTS</option>
         <option value="12<15 MTS">12&lt;15 MTS</option>
-        <option value=">15 MTS">&gt; 15 MTS</option>
+        <option value="> 15 MTS">&gt; 15 MTS</option>
       </select>
     </div>
   </div>
   <div class="row">
     <div class="col-6">
-      <label class="mt-2" for="buoyService">Període en que utilitzaras la boia:</label>
+      <label class="mt-2" for="buoyService">Període en que utilitzaras l'amarrament:</label>
       <select id="buoyService" onchange="calculatePrices()" class="form-select" aria-label="Small select example">
         <option selected value="1 Juny a 15 Setembre">1 Juny a 15 Setembre</option>
         <option value="1 Maig a 15 de Setembre">1 Maig a 15 de Setembre</option>
@@ -243,41 +254,49 @@ function googleTranslateElementInit() {
           <th scope="col"></th>
           <th scope="col">TOTAL</th>
           <td>=</td>
-          <th scope="col">preu Boia</th>
+          <th scope="col">preu Amarrament</th>
           <td>+</td>
           <th scope="col">preu Taxi</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         <tr>
-          <td class="fw-bold">Promar</td>
+          <td class="fw-bold">Promar (Boia)</td>
           <td id="promarTotalPrice" class="fw-bold">-</td>
           <td>=</td>
-          <td id="promarBuoyPrice">-</td>
+          <td id="promarMooringPrice">-</td>
           <td>+</td>
           <td id="promarTaxiPrice">-</td>
         </tr>
         <tr>
-          <td class="fw-bold">Serveis de Port</td>
+          <td class="fw-bold">Serveis de Port (Boia)</td>
           <td id="serveisDePortTotalPrice" class="fw-bold">-</td>
           <td>=</td>
-          <td id="serveisDePortBuoyPrice">-</td>
+          <td id="serveisDePortMooringPrice">-</td>
           <td>+</td>
           <td id="serveisDePortTaxiPrice">-</td>
         </tr>
         <tr>
-          <td class="fw-bold">Sotamar</td>
+          <td class="fw-bold">Sotamar (Boia)</td>
           <td id="sotamarTotalPrice" class="fw-bold">-</td>
           <td>=</td>
-          <td id="sotamarBuoyPrice">-</td>
+          <td id="sotamarMooringPrice">-</td>
           <td>+</td>
           <td id="sotamarTaxiPrice">-</td>
         </tr>
         <tr>
-          <td class="fw-bold">Mésdemar (Portlligat)</td>
+          <td class="fw-bold">Mésdemar (Boia a Portlligat)</td>
           <td id="mesDeMarTotalPrice" class="fw-bold">-</td>
           <td>=</td>
-          <td id="mesDeMarBuoyPrice">-</td>
+          <td id="mesDeMarMooringPrice">-</td>
+          <td>+</td>
+          <td id="mesDeMarTaxiPrice">-</td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Mésdemar  (Pantalà Portlligat)</td>
+          <td id="mesDeMarPontonTotalPrice" class="fw-bold">-</td>
+          <td>=</td>
+          <td id="mesDeMarPontonMooringPrice">-</td>
           <td>+</td>
           <td id="mesDeMarTaxiPrice">-</td>
         </tr>
