@@ -76,9 +76,11 @@ const SeasonServiceStringMapping = {
   "1 Maig a 30 Setembre": SeasonService.SEASON_SERVICE_PRE_MID_POST
 };
 
+
 // Since the prices are fixed and provided, we can directly include them into the function
 function importMooringPrices() {
   return {
+    //  Price order by length  [<4 , 4<6, 6<6,5, 6<8, 8<10, 10<12, 12<15, >15]
     'Promar': {
       [Season.SEASON_MID]: [1542, 1542, 1992, 1992, 2391, 2867, 3855, 4730],
       [Season.SEASON_PRE]: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -90,7 +92,7 @@ function importMooringPrices() {
       [Season.SEASON_POST]: [0, 0, 0, 0, 0, 0, 0, 0]
     },
     'Sotamar': {
-      [Season.SEASON_MID]: [1546, 1546, 2025, 2025, 2450, 2995, 4090, 4990],
+      [Season.SEASON_MID]: [1696 - 150, 1696 - 150, 2191.50 - 150, 2191.50 - 150, 2629.90 - 150, 3153.50 - 150, 4240.9 - 150, 5202.95 - 150],
       [Season.SEASON_PRE]: [100, 100, 100, 100, 100, 100, 100, 100],
       [Season.SEASON_POST]: [50, 50, 50,  50, 50, 50, 50, 50]
     },
@@ -107,8 +109,10 @@ function importMooringPrices() {
   };
 }
 
+
 function importTaxiPrices() {
   return {
+    // by season [MID, PRE, POST]
     'Promar': [0, 200, 200],
     'ServeisDePort': [0, 200, 200],
     'Sotamar': [0, 100, 100],
@@ -133,7 +137,7 @@ function calculateMooringPrices(provider, seasonService, boatSize) {
   return totalPrice;
 }
 
-function calculateTaxiPrice(provider, seasonService) {
+function calculateTaxiPrice(provider, seasonService, boatSize) {
   let totalPrice = 0;
   if (!taxiPrices[provider]) return totalPrice; // Safety check
 
@@ -142,6 +146,15 @@ function calculateTaxiPrice(provider, seasonService) {
       totalPrice += taxiPrices[provider][season];
     }
   });
+    
+  // Sotamar hack to double taxi price for bigger lengths as per Sotamar tariff
+    if ((boatSize == BoatSize.SIZE_10_12
+     || boatSize == BoatSize.SIZE_12_15
+     || boatSize == BoatSize.SIZE_15
+     )
+     && (provider == "Sotamar")) {
+        totalPrice = totalPrice * 2; 
+    }
 
   return totalPrice;
 }
@@ -159,7 +172,7 @@ function calculatePrices() {
   providers.forEach(provider => {
     const formattedProviderId = formatProviderId(provider);
     const mooringPrice = calculateMooringPrices(provider, buoyService, boatSize);
-    const taxiPrice = calculateTaxiPrice(provider, taxiService);
+    const taxiPrice = calculateTaxiPrice(provider, taxiService, boatSize);
     const totalPrice = mooringPrice + taxiPrice;
 
     document.getElementById(formattedProviderId + 'TotalPrice').textContent = totalPrice.toLocaleString() + ' €';
@@ -196,7 +209,7 @@ function googleTranslateElementInit() {
   </div>
   <div class="row mt-2">
     <div class="col-12">
-      <h6 class="text-center">by <a href="https://www.aueecad.org">AUEECAD</a> - Última actualització: 2 d'abril 2024</h6>
+      <h6 class="text-center">by <a href="https://www.aueecad.org">AUEECAD</a> - Última actualització: 24 d'abril 2024</h6>
     </div>
   </div>
   <div class="row my-4">
